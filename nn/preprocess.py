@@ -41,4 +41,20 @@ def one_hot_encode_seqs(seq_arr: List[str]) -> ArrayLike:
                 G -> [0, 0, 0, 1]
             Then, AGA -> [1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0].
     """
-    pass
+    encoding_map = {
+    'A': [1, 0, 0, 0],
+    'T': [0, 1, 0, 0],
+    'C': [0, 0, 1, 0],
+    'G': [0, 0, 0, 1]
+    }
+    # for each sequence in seq_arr loop through character and look up encoding and add encoding to one long array
+
+    encodings = []
+    for sequence in seq_arr:
+        sequence_encode = []
+        for character in sequence:
+            sequence_encode.extend(encoding_map[character])  
+        encodings.append(sequence_encode)  
+
+    return np.array(encodings)
+        
