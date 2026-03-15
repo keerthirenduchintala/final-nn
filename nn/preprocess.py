@@ -20,7 +20,25 @@ def sample_seqs(seqs: List[str], labels: List[bool]) -> Tuple[List[str], List[bo
         sampled_labels: List[bool]
             List of labels for the sampled sequences
     """
-    pass
+    # split labels into positive and negative 
+    positive = []
+    negative = []
+    for seq, label in zip(seqs,labels):
+        if label == True:
+            positive.append(seq)
+        elif label == False:
+            negative.append(seq)
+    # balancing the two by finding the length of negative and sampling the positive to match
+    sampled_pos_idx = np.random.choice(len(positive), size = len(negative), replace = True)
+    sampled_pos = []
+    for index in sampled_pos_idx:
+        sampled_pos.append(positive[index])
+    
+    # concatenate two lists
+    sampled_seqs = sampled_pos + negative
+    sampled_labels = [True] * len(sampled_pos) + [False] * len(negative)
+
+    return (sampled_seqs, sampled_labels)
 
 def one_hot_encode_seqs(seq_arr: List[str]) -> ArrayLike:
     """
