@@ -72,7 +72,7 @@ def test_binary_cross_entropy():
     # known values
     y = np.array([[1.0]])
     y_hat = np.array([[0.5]])
-    assert np.isclose(nn._binary_cross_entropy(y, y_hat), 0.693)
+    assert np.isclose(nn._binary_cross_entropy(y, y_hat), -np.log(0.5))
 
 def test_binary_cross_entropy_backprop():
     nn = neural_net()
